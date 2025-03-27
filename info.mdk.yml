@@ -1,0 +1,5 @@
+name: Mig's Pocket Dev Kit
+version: 1.0.0
+description: A general-purpose development kit with various utilities.
+dependencies:
+  - requests: ^2.25.1
