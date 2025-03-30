@@ -1,5 +1,5 @@
 {
-  "name": "my-manifest-project",
+  "name": "mdk",
   "version": "0.1.0",
   "main": "cli.mjs",
   "description": "A project made with Manifest",
@@ -13,6 +13,8 @@
     "inquirer": "^12.5.0",
     "manifest": "^4.11.1",
     "node-libcurl": "^4.1.0",
+    "pegjs": "^0.10.0",
+    "shelljs": "^0.9.2",
     "typescript": "^5.8.2",
     "yaml": "^2.7.1"
   }

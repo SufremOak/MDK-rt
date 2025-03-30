@@ -1,4 +1,5 @@
 #include "../../lib/include/MDK/MDK.h"
+#include <ncurses.h>
 
 MDK_FUNC {
     //
