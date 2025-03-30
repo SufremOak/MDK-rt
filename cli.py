@@ -14,7 +14,7 @@ def list(help="Lists all MDK binaries"):
     print(f"mdkre      MDK's REPL/mini Shell")
     print(f"libutil    MDK Library manager")
     print(f"mdkpm      MDK package manager")
-    print(f"aracc      Project ARA Powr target compiler")
+#    print(f"aracc      Project ARA Powr target compiler")
 
 @app.command()
 def run(help="Run a mdk-toolkit binary")
