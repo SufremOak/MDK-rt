@@ -4,3 +4,4 @@ node_modules
 public
 manifest/backend.db
 dist/
+target/

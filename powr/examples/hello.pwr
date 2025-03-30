@@ -1,0 +1,6 @@
+func main {
+    println{"Hello, World!"}
+    #exit
+}
+
+Return::Function ~> main

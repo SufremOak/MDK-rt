@@ -1,29 +1,34 @@
+// Grammar for Powr programming language
 WHITESPACE = _{ " " | "\t" | "\r" | "\n" }
-value = _{ object | array | string | number | boolean | null }
-boolean = { "true" | "false" }
-null = { "null" }
-object = {
-    "{" ~ "}" |
-    "{" ~ pair ~ ("," ~ pair)* ~ "}"
-}
-pair = { string ~ ":" ~ value }
+program = { main_declaration ~ statement* }
 
-array = {
-    "[" ~ "]" |
-    "[" ~ value ~ ("," ~ value)* ~ "]"
-}
-string = ${ "\"" ~ inner ~ "\"" }
-inner = @{ char* }
-char = {
-    !("\"" | "\\") ~ ANY
-    | "\\" ~ ("\"" | "\\" | "/" | "b" | "f" | "n" | "r" | "t")
-    | "\\" ~ ("u" ~ ASCII_HEX_DIGIT{4})
-}
+main_declaration = { "func" ~ identifier ~ "{" ~ (!"}" ~ ANY)* ~ "}" }
+statement = { print_statement | function_definition | file_check | variable_declaration | if_statement | else_statement | try_statement }
 
-number = @{
-    "-"?
-    ~ ("0" | ASCII_NONZERO_DIGIT ~ ASCII_DIGIT*)
-    ~ ("." ~ ASCII_DIGIT*)?
-    ~ (^"e" ~ ("+" | "-")? ~ ASCII_DIGIT+)?
-}
-powr = _{ SOI ~ (object | array) ~ EOI }
+print_statement = { "println" ~ "{" ~ (!"}" ~ ANY)* ~ "}" }
+function_definition = { "Return::Function" ~ "~>" ~ identifier }
+file_check = { "fs.checkFor" ~ "(" ~ identifier ~ ")" ~ "." ~ "waitFor" ~ "(" ~ identifier ~ ")" }
+variable_declaration = { "let" ~ identifier ~ ":" ~ type ~ "=" ~ expression ~ ";" }
+
+expression = { identifier | string_literal | function_call }
+function_call = { identifier ~ "(" ~ (expression ~ ("," ~ expression)*)? ~ ")" }
+string_literal = @{ "\"" ~ (!"\"" ~ ANY)* ~ "${" ~ expression ~ "}" ~ "\"" }
+identifier = @{ ASCII_ALPHA ~ (ASCII_ALPHANUMERIC)* }
+
+if_statement = { "if" ~ "(" ~ expression ~ ")" ~ "{" ~ statement* ~ "}" }
+else_statement = { "else" ~ "{" ~ statement* ~ "}" }
+
+func_declaration = { "func" ~ identifier ~ "(" ~ (identifier ~ ("," ~ identifier)*)? ~ ")" ~ "{" ~ statement* ~ "}" }
+
+try_statement = { "try" ~ "{" ~ statement* ~ "}" ~ "catch" ~ identifier ~ "{" ~ statement* ~ "}" }
+
+import_statement = { "import" ~ identifier }
+
+array_declaration = { "let" ~ identifier ~ "=" ~ "[" ~ (expression ~ ("," ~ expression)*)? ~ "]" }
+
+single_line_comment = _{ "//" ~ (!"\n" ~ ANY)* }
+multi_line_comment = _{ "/*" ~ (!"*/" ~ ANY)* ~ "*/" }
+
+async_function = { "async" ~ "func" ~ identifier ~ "(" ~ (identifier ~ ("," ~ identifier)*)? ~ ")" ~ "{" ~ statement* ~ "}" }
+
+type = { "int" | "float" | "string" | "bool" | identifier }

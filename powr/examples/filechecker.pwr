@@ -1,0 +1,16 @@
+i* "fs"
+i* "sys"
+
+%%main {
+    fs.checkFor (file).waitFor(file)
+    let file = fs.path('./hello.pwr')
+    * (fs.checkFor(func)::Returns 1) {
+        println("File not found!")
+    } #else* {
+        sys.run("powr hello.pwr")
+    }
+
+    Return::Null;
+}
+
+Return::Function ~> main
