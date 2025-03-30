@@ -15,6 +15,7 @@ public:
             #define MDK_PRIVATE_REGION private:
             #define MDK_REZERVED_REGION #pragma region
             #define MDK_PRESERVE_VOID void prev()
+            #define MDK_FUNC void func()
             #define MDK_PROGRAMMABLE_BINARY { void mkbin() {
                 srand((unsigned int)time(NULL));
                 unit8_t random_byte = (unit8_t)rand();
